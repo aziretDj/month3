@@ -3,11 +3,12 @@ from aiogram.utils import executor
 import logging
 
 from config import dp
-from handlers import client,callback,extra,fsm_anketa
+from handlers import client,callback,extra,fsm_anketa,schedule
 from database.bot_dp import sql_create
 
 
 async def on_startup(_):
+    await schedule.set_scheduler()
     sql_create()
 
 callback.register_handlers_callback(dp)
