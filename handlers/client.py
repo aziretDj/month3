@@ -1,9 +1,8 @@
 from aiogram import types,Dispatcher
-from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup,ParseMode
 from config import bot,dp
-
 from database.bot_dp import sql_command_random
-
+from parserr.cars import parser
 
 
 #@dp.message_handler(commands=['start'])
@@ -48,6 +47,20 @@ async def quiz_1(message: types.Message):
 async def get_random_mentor(message: types.Message):
     await sql_command_random(message)
 
+
+async def parsser_wheels(message: types.Message):
+    items = parser()
+    for item in items:
+        await bot.send_message(
+            message.from_user.id,
+
+            f"{item['link']}"
+            f"{item['logo']}\n"
+            f"# {item['size']}\n"
+            f"цена - {item['price']}\n"
+            )
+
 def register_handlers_client(dp:Dispatcher):
     dp.register_message_handler(start_command,commands=['start'])
     dp.register_message_handler(quiz_1, commands=['quiz'])
+    dp.register_message_handler(parsser_wheels, commands=['cars'])
