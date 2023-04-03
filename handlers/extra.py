@@ -16,6 +16,5 @@ async def echo(message: types.Message):
     if message.text.startswith('game'):
         await message.answer_dice()
 
-
 def register_handlers_extra(dp: Dispatcher):
     dp.register_message_handler(echo)
